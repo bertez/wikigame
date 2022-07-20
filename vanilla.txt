@@ -1,0 +1,26 @@
+Juego acabado:
+
+https://wikitrivial.netlify.app/
+
+
+Artículos más vistos en la wikipedia ayer:
+
+https://wikimedia.org/api/rest_v1/metrics/pageviews/top/es.wikipedia.org/all-access/2021/05/11
+
+
+
+Información de un artículo:
+
+https://es.wikipedia.org/api/rest_v1/page/summary/Pandemia_de_COVID-19
+
+
+
+Categorías a las que pertenece un artículo:
+
+https://es.wikipedia.org/w/api.php?format=json&origin=*&action=query&prop=categories&titles=Pandemia_de_COVID-19
+
+
+
+Artículos que contiene una categoría:
+
+https://es.wikipedia.org/w/api.php?format=json&origin=*&action=query&list=categorymembers&cmlimit=500&cmtitle=Categoría:Pandemias
