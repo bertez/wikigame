@@ -51,13 +51,13 @@ async function generateQuestion() {
 
     // Extrae el título y el resumen de ese artículo de la API
 
-    const { displaytitle, extract } = await getData(
+    const { title, extract } = await getData(
       `https://es.wikipedia.org/api/rest_v1/page/summary/${answer}`
     );
 
     // Oculta las palabras del resumen que coincidan con el título
 
-    const regex = new RegExp(displaytitle, "ig");
+    const regex = new RegExp(title, "ig");
     const clue = extract.replaceAll(regex, HIDDENTEXT);
 
     // Si no ocultó ninguna palabra genera un error
@@ -72,10 +72,7 @@ async function generateQuestion() {
     const chosenCategory = randomItem(categories);
 
     // Busca otros artículos en esa categoría
-    const falseOptions = await getCategoryArticles(
-      chosenCategory,
-      displaytitle
-    );
+    const falseOptions = await getCategoryArticles(chosenCategory, title);
 
     // Si falseOptions tiene menos de 3 artículos volvemos a generar la pregunta
 
@@ -89,14 +86,15 @@ async function generateQuestion() {
     // Creamos el objeto que define a la pregunta
     const question = {
       clue: clue,
-      answer: displaytitle,
-      options: shuffleArray([...options, displaytitle]),
+      answer: title,
+      options: shuffleArray([...options, title]),
     };
 
     // Escribimos la pregunta en el HTML
     writeQuestion(question);
   } catch (error) {
     // Si algo da error en el código del try volvemos a intentar crear la pregunta
+    console.error(error);
     generateQuestion();
   }
 }
@@ -168,6 +166,8 @@ async function start() {
 
     // Guardamos los artículos en un objeto global
     STATE.articles = articles;
+
+    console.log(STATE);
 
     // Generamos la primera pregunta
     generateQuestion();
